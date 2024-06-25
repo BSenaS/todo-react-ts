@@ -1,15 +1,14 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Todo from "./Todo";
-import { FaPencilAlt } from "react-icons/fa";
 
-type TodoType = {
+export type TodoType = {
   todoInput: string;
 };
 
 const TodoList = () => {
   const [todo, setTodo] = useState<TodoType[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
-
+  const [currentTodo, setCurrentTodo] = useState<TodoType>();
   const inputChangeHandler = (value: string) => {
     setInputValue(value);
   };
@@ -25,7 +24,7 @@ const TodoList = () => {
 
   return (
     <div className="flex flex-col justify-center items-center gap-4 ">
-      <div className="flex bg-slate-800 w-[400px] justify-between py-4 rounded-md">
+      <div className="flex bg-slate-800 w-[400px] justify-between py-4 rounded-md mt-8">
         <input
           type="text"
           placeholder="Add Todo"
@@ -41,7 +40,12 @@ const TodoList = () => {
         </button>
       </div>
       {todo.map((todo) => (
-        <Todo todoInput={todo.todoInput} key={todo.todoInput} />
+        <Todo
+          todoInput={todo.todoInput}
+          setCurrentTodo={setCurrentTodo}
+          setTodo={setTodo}
+          key={todo.todoInput}
+        />
       ))}
     </div>
   );
